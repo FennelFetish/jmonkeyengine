@@ -306,8 +306,6 @@ class LetterQuad {
     }
 
     void update(StringBlock block) {
-        final float[] tabs = block.getTabPosition();
-        final float tabWidth = block.getTabWidth();
         final Rectangle bound = getBound(block);
         sizeScale = block.getSize() / font.getCharSet().getRenderedSize();
         lineY = computeLineY(block);
@@ -320,16 +318,9 @@ class LetterQuad {
             xAdvance = 0;
         } else if (isTab()) {
             x0 = previous.getNextX();
-            width = tabWidth;
+            width = calcTabWidth(block, x0);
             y0 = lineY;
             height = 0;
-            if (tabs != null && x0 < tabs[tabs.length-1]) {
-                for (int i = 0; i < tabs.length-1; i++) {
-                    if (x0 > tabs[i] && x0 < tabs[i+1]) {
-                        width = tabs[i+1] - x0;
-                    }
-                }
-            }
             xAdvance = width;
         } else if (bitmapChar == null) {
             x0 = getPrevious().getX1();
@@ -390,6 +381,25 @@ class LetterQuad {
         if (isEndOfLine()) {
             xAdvance = bound.x-x0;
         }
+    }
+
+    private float calcTabWidth(StringBlock block, float x0) {
+        final float tabWidth = block.getTabWidth();
+        final float[] tabs   = block.getTabPosition();
+
+        // If there is an upcoming tab stop, use that one
+        if (tabs != null && x0 < tabs[tabs.length-1]) {
+            for (int i = 0; i < tabs.length; i++) {
+                if (x0 < tabs[i]) {
+                    return tabs[i] - x0;
+                }
+            }
+        }
+
+        // No upcoming tab stops available, use default tabs
+        // The little offset is to allow multiple consecutive tabs
+        float nextTab = (float)Math.ceil((x0 + 0.00001) / tabWidth) * tabWidth;
+        return nextTab - x0;
     }
     
     /**

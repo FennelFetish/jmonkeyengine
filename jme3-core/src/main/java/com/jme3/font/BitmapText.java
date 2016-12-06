@@ -369,7 +369,10 @@ public class BitmapText extends Node {
     }
 
     /**
-     * @param tabs tab positions
+     * Sets the positions at where the text continues after a tab character.
+     * These tab stops need to be sorted from smallest to biggest value.
+     * 
+     * @param tabs Sorted tab positions.
      */
     public void setTabPosition(float... tabs) {
         block.setTabPosition(tabs);
@@ -378,7 +381,7 @@ public class BitmapText extends Node {
     }
 
     /**
-     * used for the tabs over the last tab position.
+     * used for the tabs behind the last tab position.
      * @param width tab size
      */
     public void setTabWidth(float width) {

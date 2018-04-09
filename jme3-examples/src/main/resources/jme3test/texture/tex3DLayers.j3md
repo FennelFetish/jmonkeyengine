@@ -1,0 +1,15 @@
+MaterialDef Tex3DLayers {
+    MaterialParameters {
+        Int NumLayers
+    }
+
+    Technique {
+        VertexShader   GLSL130: jme3test/texture/tex3DLayers.vert
+        GeometryShader GLSL150: jme3test/texture/tex3DLayers.geom
+        FragmentShader GLSL120: jme3test/texture/tex3DLayers.frag
+
+        WorldParameters {
+            Time
+        }
+    }
+}

@@ -591,6 +591,7 @@ public class LwjglGL extends LwjglRender implements GL, GL2, GL3, GL4 {
         return GL15.glGetQueryObjecti(query, pname);
     }
 
+    @Override
     public String glGetShaderInfoLog(int shader, int maxSize) {
         return GL20.glGetShaderInfoLog(shader, maxSize);
     }
@@ -614,6 +615,11 @@ public class LwjglGL extends LwjglRender implements GL, GL2, GL3, GL4 {
     @Override
     public void glPatchParameter(final int count) {
         GL40.glPatchParameteri(GL40.GL_PATCH_VERTICES, count);
+    }
+
+    @Override
+    public void glFramebufferTexture(int target, int attachment, int texture, int level) {
+        GL32.glFramebufferTexture(target, attachment, texture, level);
     }
 
     @Override

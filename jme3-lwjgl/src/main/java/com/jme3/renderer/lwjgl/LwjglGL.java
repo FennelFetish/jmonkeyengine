@@ -487,6 +487,11 @@ public final class LwjglGL implements GL, GL2, GL3, GL4 {
     public void glPatchParameter(int count) {
         GL40.glPatchParameteri(GL40.GL_PATCH_VERTICES,count);
     }
+
+    @Override
+    public void glFramebufferTexture(int target, int attachment, int texture, int level) {
+        GL32.glFramebufferTexture(target, attachment, texture, level);
+    }
     
     @Override
     public void glDeleteVertexArrays(IntBuffer arrays) {

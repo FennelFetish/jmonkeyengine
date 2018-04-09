@@ -1574,7 +1574,14 @@ public final class GLRenderer implements Renderer {
             setupTextureParams(0, tex);
         }
 
-        if (rb.getLayer() < 0){
+        if(tex.getType() == Texture.Type.ThreeDimensional) {
+            if(gl4 != null) {
+                gl4.glFramebufferTexture(GLFbo.GL_FRAMEBUFFER_EXT,
+                        convertAttachmentSlot(rb.getSlot()),
+                        image.getId(),
+                        0);
+            }
+        } else if (rb.getLayer() < 0) {
             glfbo.glFramebufferTexture2DEXT(GLFbo.GL_FRAMEBUFFER_EXT,
                     convertAttachmentSlot(rb.getSlot()),
                     convertTextureType(tex.getType(), image.getMultiSamples(), rb.getFace()),

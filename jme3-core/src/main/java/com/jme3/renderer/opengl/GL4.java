@@ -50,4 +50,16 @@ public interface GL4 extends GL3 {
      * @param count the new value for the parameter given by {@code pname}
      */
     public void glPatchParameter(int count);
+
+    /**
+     * <p><a target="_blank" href="http://docs.gl/gl4/glFramebufferTexture">Reference Page</a></p>
+     * <p>
+     * Attach a level of a texture object as a logical buffer of a framebuffer object.
+     *
+     * @param target Specifies the target to which the framebuffer is bound for all commands except glNamedFramebufferTexture.
+     * @param attachment Specifies the attachment point of the framebuffer.
+     * @param texture Specifies the name of an existing texture object to attach.
+     * @param level Specifies the mipmap level of the texture object to attach.
+     */
+    public void glFramebufferTexture(int target, int attachment, int texture, int level);
 }

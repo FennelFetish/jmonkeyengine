@@ -628,6 +628,11 @@ public class JoglGL implements GL, GL2, GL3, GL4 {
 	public void glPatchParameter(int count) {
         GLContext.getCurrentGL().getGL3().glPatchParameteri(com.jogamp.opengl.GL3.GL_PATCH_VERTICES, count);
     }
+
+    @Override
+    public void glFramebufferTexture(int target, int attachment, int texture, int level) {
+        GLContext.getCurrentGL().getGL3().glFramebufferTexture(target, attachment, texture, level);
+    }
     
     @Override
 	public void glDeleteVertexArrays(IntBuffer arrays) {
